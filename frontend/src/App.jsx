@@ -13,6 +13,8 @@ import Register from "./pages/Register";
 
 axios.defaults.withCredentials = true;
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -20,11 +22,9 @@ function App() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(
-          "https://user-management-app-wlsn.onrender.com/auth/login",
-        );
+        const res = await axios.get(apiUrl + "/api/auth/login");
         setUser(res.data);
-      } catch (error) {
+      } catch (err) {
         setUser(null);
       } finally {
         setLoading(false);
@@ -41,7 +41,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
