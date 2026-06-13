@@ -69,7 +69,7 @@ const isMatch =  await bcrypt.compare(password, userData.password)
 
     res.cookie('token', token, cookieOptions);
 
-  res.json({user: {name: userData.name, email: userData.email, status: userData.status, login_at: userData.login_at}})
+    res.json({user: {name: userData.name, email: userData.email, status: userData.status, login_at: userData.login_at}})
 })
 
 
