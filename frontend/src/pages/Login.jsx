@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import wallpaper from "../images/wallpaper.svg";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Login = ({ setUser }) => {
@@ -23,12 +23,14 @@ const Login = ({ setUser }) => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center p-4">
+    <div className="min-h-[80vh] flex items-center justify-center p-4 gap-30">
       <form
         className="bg-white p-6 rounded shadow-md w-full max-w-lg"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-xl mb-4">Login</h2>
+        <h2 className="text-xl mb-4 font-semibold">
+          Sign In to User Management App
+        </h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <input
           type="email"
@@ -54,8 +56,14 @@ const Login = ({ setUser }) => {
             })
           }
         />
-        <button className="bg-blue-500 text-white p-2 w-full">Login</button>
+        <button className="bg-[#2c3a92] text-white p-2 w-full hover:bg-[#2b3178] font-semibold">
+          Sign In
+        </button>
       </form>
+      <div
+        className="hidden lg:block min-h-[80vh] lg:w-1/3 bg-cover bg-center"
+        style={{ backgroundImage: `url(${wallpaper})` }}
+      ></div>
     </div>
   );
 };

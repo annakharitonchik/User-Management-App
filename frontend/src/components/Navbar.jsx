@@ -9,26 +9,24 @@ const Navbar = ({ user, setUser }) => {
     navigate("/");
   };
   return (
-    <nav className="bg-gray-500  p-4 text-white">
-      <div className="max-w-6xl mx-auto p-4 flex justify-between items-center">
-        <Link to="/">User-Management-App </Link>
+    <nav>
+      <div className="max-w-6xl mx-auto p-2 flex justify-between items-start gap-15">
+        <Link
+          to="/"
+          className="text-[#2c3a92] text-3xl font-extrabold leading-none"
+        >
+          {"User Management App".toUpperCase()}{" "}
+        </Link>
         <div>
           {user ? (
             <button
               onClick={handleLogout}
-              className="bg-red-500 px-3 py-1 rounded"
+              className="bg-gray-300 hover:bg-gray-400 text-center text-black px-3 py-1 rounded whitespace-nowrap font-semibold"
             >
               Log out
             </button>
           ) : (
-            <>
-              <Link to="/register" className="mx-2">
-                Sign up
-              </Link>
-              <Link to="/" className="mx-2">
-                Forgot password
-              </Link>
-            </>
+            <></>
           )}
         </div>
       </div>
