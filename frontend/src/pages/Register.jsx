@@ -17,7 +17,7 @@ const Register = ({ setUser }) => {
       const res = await axios.post("/api/auth/register", form);
       setUser(res.data.user);
       navigate("/");
-    } catch (err) {
+    } catch {
       setError("Registration failed");
     }
   };
