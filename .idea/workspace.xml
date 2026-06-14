@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd9c89a7-91c4-48ef-95fe-baa78baf1b2d" name="Changes" comment="fix auth.js">
+    <list default="true" id="fd9c89a7-91c4-48ef-95fe-baa78baf1b2d" name="Changes" comment="fix:signin request">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +108,7 @@
       <workItem from="1781190273036" duration="11516000" />
       <workItem from="1781266897756" duration="19478000" />
       <workItem from="1781351808318" duration="18881000" />
-      <workItem from="1781444415140" duration="18597000" />
+      <workItem from="1781444415140" duration="20569000" />
     </task>
     <task id="LOCAL-00001" summary="backend setup">
       <option name="closed" value="true" />
@@ -222,7 +222,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781465302630</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="fix:signin request">
+      <option name="closed" value="true" />
+      <created>1781469129210</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1781469129210</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,7 +263,8 @@
     <MESSAGE value="create NotFound" />
     <MESSAGE value="add styles" />
     <MESSAGE value="fix auth.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix auth.js" />
+    <MESSAGE value="fix:signin request" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix:signin request" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
