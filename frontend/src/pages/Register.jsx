@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import wallpaper from "../images/wallpaper.svg";
-
+const apiUrl = import.meta.env.VITE_API_URL;
 const Register = ({ setUser }) => {
   const [form, setForm] = useState({
     name: "",
@@ -14,7 +14,7 @@ const Register = ({ setUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/auth/register", form);
+      const res = await axios.post(apiUrl + "/api/auth/register", form);
       setUser(res.data.user);
       navigate("/");
     } catch {

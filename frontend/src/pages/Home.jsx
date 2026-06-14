@@ -8,7 +8,7 @@ const Home = ({ user, error }) => {
       {error && <p>{error}</p>}
       {user ? (
         <div>
-          <h2>hello</h2>
+          <h2>hello {user.name}</h2>
         </div>
       ) : (
         <div className="min-h-[80vh] flex items-center justify-center p-4 gap-30">
