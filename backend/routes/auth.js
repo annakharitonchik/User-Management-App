@@ -79,7 +79,7 @@ router.get('/me', protect, async (req, res)=>{
 
 router.post('/logout', (req, res) =>{
     res.cookie('token', '', {...cookieOptions, maxAge: 1});
-    res.json({message: 'Logged out seccessfully'})
+    res.json({message: 'Logged out successfully'})
 });
 
 export default router

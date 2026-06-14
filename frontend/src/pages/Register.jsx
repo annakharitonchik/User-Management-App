@@ -14,7 +14,7 @@ const Register = ({ setUser }) => {
     e.preventDefault();
     try {
       const res = await axios.post("/api/auth/register", form);
-      setUser(res.data);
+      setUser(res.data.user);
       navigate("/");
     } catch (err) {
       setError("Registration failed");
@@ -22,8 +22,11 @@ const Register = ({ setUser }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <form className="bg-white p-6 rounded shadow-md" onSubmit={handleSubmit}>
+    <div className="min-h-[80vh] flex items-center justify-center p-4">
+      <form
+        className="bg-white p-6 rounded shadow-md w-full max-w-lg "
+        onSubmit={handleSubmit}
+      >
         <h2 className="text-xl mb-4">Register</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <input
