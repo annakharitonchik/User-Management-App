@@ -18,17 +18,17 @@ const Home = ({ user, error }) => {
             </h1>
             <div className=" flex flex-col gap-y-4">
               <Link
-                to="/register"
+                to="/login"
                 className="bg-[#2c3a92] text-white p-3 rounded-md hover:bg-[#2b3178] text-center font-semibold"
               >
-                Sign Up
+                Sign In
               </Link>
 
               <Link
-                to="/login"
+                to="/register"
                 className="bg-gray-300 text-black p-3 rounded-md hover:bg-gray-400 text-center font-semibold"
               >
-                Sign In
+                Sign Up
               </Link>
             </div>
           </div>

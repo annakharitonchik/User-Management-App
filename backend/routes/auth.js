@@ -22,7 +22,7 @@ const generateToken = (email) => {
 router.post('/register', async(req, res)=>{
     const {name, email, password} = req.body
     if(!email || !password){
-        return res.status(400).json({message: `Please provide ${email? 'email' : "password"}`})
+        return res.status(400).json({message: `Please provide email or password"}`})
     }
 
     const userExists = await pool.query('SELECT * FROM users WHERE email = $1',[email])
