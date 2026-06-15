@@ -13,7 +13,6 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./components/NotFound";
-import AuthLinks from "./components/AuthLinks.jsx";
 
 axios.defaults.withCredentials = true;
 

@@ -3,3 +3,14 @@
 body {
   @apply bg-gray-100;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
+  -webkit-text-fill-color: black;
+}
+
+input:-moz-autofill {
+  box-shadow: 0 0 0 1000px white inset !important;
+  -moz-text-fill-color: black !important;
+}
