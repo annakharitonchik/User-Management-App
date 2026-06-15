@@ -6,13 +6,6 @@ import {protect} from "../middleware/auth.js";
 
 const router = express.Router();
 
-const cookieOptions = {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'None',
-    maxAge: 30 * 24 * 60 * 60 * 1000
-}
-
 const generateToken = (email) => {
     return jwt.sign({email}, process.env.JWT_SECRET,{
         expiresIn: '30d'
@@ -40,9 +33,7 @@ router.post('/register', async(req, res)=>{
 
     const token = generateToken(newUser.rows[0].email);
 
-    res.cookie('token', token, cookieOptions);
-
-    return res.status(201).json({user: newUser.rows[0]})
+    return res.status(201).json({user: newUser.rows[0], token})
 })
 
 
@@ -67,19 +58,14 @@ const isMatch =  await bcrypt.compare(password, userData.password)
 
     const token = generateToken(userData.email);
 
-    res.cookie('token', token, cookieOptions);
 
-    res.json({user: {name: userData.name, email: userData.email, status: userData.status, login_at: userData.login_at}})
+
+    res.json({user: {name: userData.name, email: userData.email, status: userData.status, login_at: userData.login_at},token})
 })
 
 
 router.get('/me', protect, async (req, res)=>{
     res.json(req.user)
 })
-
-router.post('/logout', (req, res) =>{
-    res.cookie('token', '', {...cookieOptions, maxAge: 1});
-    res.json({message: 'Logged out successfully'})
-});
 
 export default router

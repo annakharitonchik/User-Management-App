@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -25,9 +25,12 @@ function App() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(apiUrl + "/api/auth/me");
+        const res = await axios.get(apiUrl + "/api/auth/me", {
+          headers: { Authorization: localStorage.getItem("token") },
+        });
+
         setUser(res.data);
-      } catch (err) {
+      } catch {
         setUser(null);
       } finally {
         setLoading(false);
@@ -38,7 +41,7 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center p-4 text-gray-300 text-3xl mb-4 font-semibold">
+      <div className="h-screen flex items-center justify-center p-4 text-gray-300 text-3xl mb-4 font-semibold">
         Loading...
       </div>
     );

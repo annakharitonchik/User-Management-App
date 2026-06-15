@@ -11,7 +11,7 @@ const Home = ({ user, error }) => {
           <h2>hello {user.name}</h2>
         </div>
       ) : (
-        <div className="min-h-[70vh] flex items-center justify-center p-4 gap-30">
+        <div className="min-h-[80vh] flex items-center justify-center p-4 lg:gap-30">
           <div className="bg-white p-6 rounded shadow-md w-full max-w-lg">
             <h1 className="text-xl mb-4 font-semibold">
               Please login or register

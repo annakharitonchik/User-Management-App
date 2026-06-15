@@ -15,6 +15,7 @@ const Login = ({ setUser }) => {
     e.preventDefault();
     try {
       const res = await axios.post(apiUrl + "/api/auth/login", form);
+      localStorage.setItem("token", res.data.token);
       setUser(res.data.user);
       navigate("/");
     } catch (err) {
@@ -23,7 +24,7 @@ const Login = ({ setUser }) => {
   };
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center p-4 gap-30">
+    <div className="min-h-[80vh] flex items-center justify-center p-4 lg:gap-30">
       <form
         className="bg-white p-6 rounded shadow-md w-full max-w-lg"
         onSubmit={handleSubmit}
@@ -61,7 +62,7 @@ const Login = ({ setUser }) => {
         </button>
       </form>
       <div
-        className="hidden lg:block min-h-[70vh] lg:w-1/3 bg-cover bg-center"
+        className="hidden lg:block min-h-[80vh] lg:w-1/3 bg-cover bg-center"
         style={{ backgroundImage: `url(${wallpaper})` }}
       ></div>
     </div>
