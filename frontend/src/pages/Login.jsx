@@ -69,8 +69,11 @@ const Login = ({ setUser }) => {
               </div>
               <Lock className="text-gray-300 ml-3" size={28} />
             </div>
-            <button className="bg-[#2c3a92] text-white p-2 w-full hover:bg-[#2b3178] text-center font-semibold rounded-md">
-              Sign Up
+            <button
+              className="bg-[#2c3a92] text-white p-2 w-full
+            hover:bg-[#2b3178] text-center font-semibold rounded-md"
+            >
+              Sign In
             </button>
           </form>
           <div className="flex flex-col gap-1 mt-2">
@@ -80,7 +83,7 @@ const Login = ({ setUser }) => {
                 to="/register"
                 className="text-[#2c3a92] hover:text-[#2b3178] font-semibold "
               >
-                Sign In
+                Sign Up
               </Link>
             </div>
             <Link
