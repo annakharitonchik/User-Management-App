@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd9c89a7-91c4-48ef-95fe-baa78baf1b2d" name="Changes" comment="style:add styles">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/AppRoutes.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Table.jsx" afterDir="false" />
+    <list default="true" id="fd9c89a7-91c4-48ef-95fe-baa78baf1b2d" name="Changes" comment="feat:add Table">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +109,7 @@
       <workItem from="1781444415140" duration="23470000" />
       <workItem from="1781528866915" duration="3888000" />
       <workItem from="1781542918174" duration="25320000" />
-      <workItem from="1781599061425" duration="2408000" />
+      <workItem from="1781599061425" duration="4427000" />
     </task>
     <task id="LOCAL-00001" summary="backend setup">
       <option name="closed" value="true" />
@@ -299,7 +295,23 @@
       <option name="project" value="LOCAL" />
       <updated>1781566939506</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="feat:add styles">
+      <option name="closed" value="true" />
+      <created>1781601743507</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1781601743509</updated>
+    </task>
+    <task id="LOCAL-00025" summary="feat:add Table">
+      <option name="closed" value="true" />
+      <created>1781601759052</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1781601759052</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,6 +353,8 @@
     <MESSAGE value="fix: add headers" />
     <MESSAGE value="style:use prettier" />
     <MESSAGE value="style:add styles" />
-    <option name="LAST_COMMIT_MESSAGE" value="style:add styles" />
+    <MESSAGE value="feat:add styles" />
+    <MESSAGE value="feat:add Table" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:add Table" />
   </component>
 </project>
