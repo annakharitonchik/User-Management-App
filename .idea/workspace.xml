@@ -4,9 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd9c89a7-91c4-48ef-95fe-baa78baf1b2d" name="Changes" comment="feat: add  error/success messages">
+    <list default="true" id="fd9c89a7-91c4-48ef-95fe-baa78baf1b2d" name="Changes" comment="fix: package.json">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/236a04d0-8d08-4058-bce2-b0f0579ac31b.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/236a04d0-8d08-4058-bce2-b0f0579ac31b/storage_v2/_src_/database/usersapp_xo95.uaX53Q.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/236a04d0-8d08-4058-bce2-b0f0579ac31b/storage_v2/_src_/database/usersapp_xo95.uaX53Q/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/236a04d0-8d08-4058-bce2-b0f0579ac31b/storage_v2/_src_/database/usersapp_xo95.uaX53Q/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/236a04d0-8d08-4058-bce2-b0f0579ac31b/storage_v2/_src_/database/usersapp_xo95.uaX53Q/schema/public.abK9xQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/data_source_mapping.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_17_06_2026_12_27_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_17_06_2026_12_27_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_17_06_2026_12_27__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_06_2026_12_19_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_06_2026_12_19__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqlDataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/mailer.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/mailer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -381,7 +397,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781713493717</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="feat: add  error/success messages">
+      <option name="closed" value="true" />
+      <created>1781713592306</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1781713592306</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -402,7 +426,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="create Login" />
     <MESSAGE value="create Register" />
     <MESSAGE value="create Navbar" />
     <MESSAGE value="create NotFound" />
@@ -427,6 +450,7 @@
     <MESSAGE value="feat: add verification" />
     <MESSAGE value="feat: add tooltip" />
     <MESSAGE value="feat: add  error/success messages" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add  error/success messages" />
+    <MESSAGE value="fix: package.json" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: package.json" />
   </component>
 </project>
