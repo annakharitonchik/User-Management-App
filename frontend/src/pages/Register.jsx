@@ -33,12 +33,12 @@ const Register = ({ setUser }) => {
 
   return (
     <>
-      {showEmailAlert && (
+      {
         <div
           className="
-    fixed top-5 left-1/2 -translate-x-1/2
+    fixed top-5  lg:left-1/4 left-1/2 -translate-x-1/2
     bg-white shadow-lg rounded-xl
-    px-5 py-4 z-50
+    px-5 py-4 z-10
     w-90 max-w-sm
     text-center
   "
@@ -48,7 +48,7 @@ const Register = ({ setUser }) => {
           </p>
           <p className="text-sm text-gray-500">Verification link was sent</p>
         </div>
-      )}
+      }
       <div className="min-h-[80dvh] flex items-center justify-center p-4 ">
         <div className="flex flex-col gap-3 w-full items-center justify-center">
           <div>
