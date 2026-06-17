@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 const apiUrl = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
-import { Lock, Trash2, LockOpen, UserRoundX, MailCheck } from "lucide-react";
+import { Lock, Trash2, LockOpen, UserRoundX } from "lucide-react";
 
 const Table = ({ user, setUser }) => {
   const [users, setUsers] = useState([]);
@@ -26,128 +26,88 @@ const Table = ({ user, setUser }) => {
   const [selectedEmails, setSelectedEmails] = useState([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const blockSelectedUsers = async () => {
-    if (selectedEmails.length) {
-      setShowSuccessMessage(true);
-      setTimeout(() => {
-        setShowSuccessMessage(false);
-      }, 3000);
-      await axios.patch(
-        apiUrl + "/api/auth/users/block",
-        {
-          emails: selectedEmails,
-        },
-        { headers: { Authorization: localStorage.getItem("token") } },
-      );
-      if (selectedEmails.includes(user.email)) {
-        localStorage.removeItem("token");
-        setUser(null);
-        return;
-      }
-      setUsers((prev) =>
-        prev.map((user) =>
-          selectedEmails.includes(user.email)
-            ? { ...user, status: "Blocked" }
-            : user,
-        ),
-      );
-    } else {
-      setShowErrorMessage(true);
-      setTimeout(() => {
-        setShowErrorMessage(false);
-      }, 3000);
-    }
-  };
-  const unBlockSelectedUsers = async () => {
-    if (selectedEmails.length) {
-      setShowSuccessMessage(true);
-      setTimeout(() => {
-        setShowSuccessMessage(false);
-      }, 3000);
-      await axios.patch(
-        apiUrl + "/api/auth/users/unblock",
-        {
-          emails: selectedEmails,
-        },
-        { headers: { Authorization: localStorage.getItem("token") } },
-      );
-      setUsers((prev) =>
-        prev.map((user) =>
-          selectedEmails.includes(user.email)
-            ? { ...user, status: user.verified ? "Active" : "Unverified" }
-            : user,
-        ),
-      );
-    } else {
-      setShowErrorMessage(true);
-      setTimeout(() => {
-        setShowErrorMessage(false);
-      }, 3000);
-    }
-  };
-  const removeSelectedUsers = async () => {
-    if (selectedEmails.length) {
-      setShowSuccessMessage(true);
-      setTimeout(() => {
-        setShowSuccessMessage(false);
-      }, 3000);
-      await axios.patch(
-        apiUrl + "/api/auth/users/remove",
-        {
-          emails: selectedEmails,
-        },
-        { headers: { Authorization: localStorage.getItem("token") } },
-      );
-      if (selectedEmails.includes(user.email)) {
-        localStorage.removeItem("token");
-        setUser(null);
-        return;
-      }
-      setUsers((prev) =>
-        prev.filter((user) => !selectedEmails.includes(user.email)),
-      );
-    } else {
-      setShowErrorMessage(true);
-      setTimeout(() => {
-        setShowErrorMessage(false);
-      }, 3000);
-    }
-  };
-  const removeSelectedUnverifiedUsers = async () => {
-    if (selectedEmails.length) {
-      setShowSuccessMessage(true);
-      setTimeout(() => {
-        setShowSuccessMessage(false);
-      }, 3000);
-      await axios.patch(
-        apiUrl + "/api/auth/users/remove/unverified",
-        {
-          emails: selectedEmails,
-        },
-        { headers: { Authorization: localStorage.getItem("token") } },
-      );
-      if (selectedEmails.includes(user.email) && user.status === "Unverified") {
-        localStorage.removeItem("token");
-        setUser(null);
-        return;
-      }
-      setUsers((prev) =>
-        prev.filter(
-          (user) =>
-            !(
-              selectedEmails.includes(user.email) &&
-              user.status === "Unverified"
-            ),
-        ),
-      );
-    } else {
-      setShowErrorMessage(true);
-      setTimeout(() => {
-        setShowErrorMessage(false);
-      }, 3000);
-    }
-  };
 
+  const handleUserActions = async ({
+    url,
+    newStatus,
+    filterFn,
+    remove = false,
+    logout = false,
+  }) => {
+    const selectedUsers = users.filter(
+      (u) => selectedEmails.includes(u.email) && filterFn(u),
+    );
+
+    if (!selectedUsers.length) {
+      setShowErrorMessage(true);
+      setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 3000);
+      return;
+    }
+
+    const emails = selectedUsers.map((u) => u.email);
+
+    await axios.patch(
+      apiUrl + url,
+      { emails },
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      },
+    );
+
+    if (logout && selectedUsers.some((u) => u.email === user.email)) {
+      localStorage.removeItem("token");
+      setUser(null);
+      return;
+    }
+
+    setUsers((prev) =>
+      remove
+        ? prev.filter((u) => !emails.includes(u.email))
+        : prev.map((u) =>
+            emails.includes(u.email) ? { ...u, status: newStatus(u) } : u,
+          ),
+    );
+
+    setShowSuccessMessage(true);
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
+  };
+  const blockSelectedUsers = () => {
+    handleUserActions({
+      url: "/api/auth/users/block",
+      filterFn: (u) => u.status !== "Blocked",
+      newStatus: () => "Blocked",
+      logout: true,
+    });
+  };
+  const unBlockSelectedUsers = () => {
+    handleUserActions({
+      url: "/api/auth/users/unblock",
+      filterFn: (u) => u.status === "Blocked",
+      newStatus: (u) => (u.verified ? "Active" : "Unverified"),
+    });
+  };
+  const removeSelectedUsers = () => {
+    handleUserActions({
+      url: "/api/auth/users/remove",
+      filterFn: () => true,
+      remove: true,
+      logout: true,
+    });
+  };
+  const removeSelectedUnverifiedUsers = () => {
+    handleUserActions({
+      url: "/api/auth/users/remove/unverified",
+      filterFn: (u) => u.status === "Unverified",
+      remove: true,
+      logout: true,
+    });
+  };
   useEffect(() => {
     const fetchUsers = async () => {
       try {
