@@ -96,6 +96,7 @@ const Table = ({ user, setUser }) => {
       );
       if (selectedEmails.includes(user.email) && user.status === "Unverified") {
         localStorage.removeItem("token");
+        setUser(null);
         return;
       }
       setUsers((prev) =>
@@ -236,8 +237,23 @@ const Table = ({ user, setUser }) => {
                   </td>
                   <td className="whitespace-nowrap">{person.status}</td>
                   <td>
-                    <div className="whitespace-nowrap">
+                    <div className="whitespace-nowrap relative group cursor-pointer z-10">
                       {getTimeAgo(person.last_seen)}
+                      <div
+                        className="
+      absolute left-1/2 -translate-x-1/2 mt-2 opacity-0 invisible
+      group-hover:opacity-100 group-hover:visible
+      bg-gray-900 text-white text-xs rounded px-2 py-1"
+                      >
+                        {new Date(person.last_seen).toLocaleString("en-GB", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        })}
+                      </div>
                     </div>
                   </td>
                 </tr>
