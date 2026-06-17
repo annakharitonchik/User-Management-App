@@ -10,7 +10,7 @@ const Navbar = ({ user, setUser }) => {
   };
   return (
     <nav>
-      <div className="max-w-6xl mx-auto p-2 flex justify-between items-start gap-15">
+      <div className="max-w-full mx-auto p-2 flex justify-between items-start gap-15">
         <Link
           to="/"
           className="text-[#2c3a92] text-3xl font-extrabold leading-none"
