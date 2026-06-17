@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 const apiUrl = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
-import { Lock, Trash2, LockOpen } from "lucide-react";
+import { Lock, Trash2, LockOpen, UserRoundX } from "lucide-react";
 
 const Table = ({ user, setUser }) => {
   const [users, setUsers] = useState([]);
@@ -85,6 +85,30 @@ const Table = ({ user, setUser }) => {
       );
     }
   };
+  const removeSelectedUnverifiedUsers = async () => {
+    if (selectedEmails.length) {
+      await axios.patch(
+        apiUrl + "/api/auth/users/remove/unverified",
+        {
+          emails: selectedEmails,
+        },
+        { headers: { Authorization: localStorage.getItem("token") } },
+      );
+      if (selectedEmails.includes(user.email) && user.status === "Unverified") {
+        localStorage.removeItem("token");
+        return;
+      }
+      setUsers((prev) =>
+        prev.filter(
+          (user) =>
+            !(
+              selectedEmails.includes(user.email) &&
+              user.status === "Unverified"
+            ),
+        ),
+      );
+    }
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -128,6 +152,12 @@ const Table = ({ user, setUser }) => {
                 onClick={removeSelectedUsers}
               >
                 <Trash2 size={20} />
+              </button>
+              <button
+                className=" h-full border-2 flex items-center justify-center border-red-600 rounded-md aspect-square text-red-600"
+                onClick={removeSelectedUnverifiedUsers}
+              >
+                <UserRoundX size={20} />
               </button>
             </div>
             <div className="h-full w-70">

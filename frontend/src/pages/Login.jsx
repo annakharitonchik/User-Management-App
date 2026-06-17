@@ -19,12 +19,7 @@ const Login = ({ setUser }) => {
       localStorage.setItem("token", res.data.token);
       setUser(res.data.user);
       navigate("/");
-    } catch (error) {
-      if (error.response?.status === 403) {
-        setError("You are blocked");
-        return;
-      }
-
+    } catch {
       setError("Invalid email or password");
     }
   };

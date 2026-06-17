@@ -20,24 +20,22 @@ router.post("/register", async (req, res) => {
       .json({ message: `Please provide email or password"}` });
   }
 
-  const userExists = await pool.query("SELECT * FROM users WHERE email = $1", [
-    email,
-  ]);
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-  if (userExists.rows.length > 0) {
-    return res.status(400).json({ message: "User already exists" });
+    const newUser = await pool.query(
+      "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING * ",
+      [name, email, hashedPassword],
+    );
+
+    const token = generateToken(newUser.rows[0].email);
+
+    return res.status(201).json({ user: newUser.rows[0], token });
+  } catch (error) {
+    if (error.code === "23505") {
+      return res.status(400).json({ message: "User already exists" });
+    }
   }
-
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  const newUser = await pool.query(
-    "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING * ",
-    [name, email, hashedPassword],
-  );
-
-  const token = generateToken(newUser.rows[0].email);
-
-  return res.status(201).json({ user: newUser.rows[0], token });
 });
 
 router.post("/login", async (req, res) => {
@@ -110,14 +108,23 @@ router.patch("/users/block", protect, async (req, res) => {
 });
 router.patch("/users/unblock", protect, async (req, res) => {
   const { emails } = req.body;
-  await pool.query("UPDATE users SET status = 'Active' WHERE email = ANY($1)", [
-    emails,
-  ]);
+  await pool.query(
+    "UPDATE users SET status = CASE WHEN verified = true THEN 'Active' ELSE 'Unverified' END WHERE email = ANY($1)",
+    [emails],
+  );
   res.json({ message: "Users unblocked" });
 });
 router.patch("/users/remove", protect, async (req, res) => {
   const { emails } = req.body;
   await pool.query("DELETE FROM users WHERE email = ANY($1)", [emails]);
   res.json({ message: "Users deleted" });
+});
+router.patch("/users/remove/unverified", protect, async (req, res) => {
+  const { emails } = req.body;
+  await pool.query(
+    "DELETE FROM users WHERE status='Unverified' AND email=ANY($1)",
+    [emails],
+  );
+  res.json({ message: "Unverified users deleted" });
 });
 export default router;
