@@ -13,12 +13,18 @@ const Login = ({ setUser }) => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const res = await axios.post(apiUrl + "/api/auth/login", form);
       localStorage.setItem("token", res.data.token);
       setUser(res.data.user);
       navigate("/");
-    } catch {
+    } catch (error) {
+      if (error.response?.status === 403) {
+        setError("You are blocked");
+        return;
+      }
+
       setError("Invalid email or password");
     }
   };

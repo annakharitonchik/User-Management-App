@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd9c89a7-91c4-48ef-95fe-baa78baf1b2d" name="Changes" comment="feat:add buttons block, delete, unblock">
+    <list default="true" id="fd9c89a7-91c4-48ef-95fe-baa78baf1b2d" name="Changes" comment="fix:styles">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/middleware/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/middleware/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/Table.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Table.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +30,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="e68225af38b7a44ecee05215afd8aa2305ec73d4" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -329,7 +336,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781686208362</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="fix:styles">
+      <option name="closed" value="true" />
+      <created>1781688539583</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1781688539583</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -350,7 +365,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="backend setup" />
     <MESSAGE value="database connection" />
     <MESSAGE value="creating routes" />
     <MESSAGE value="creating protect middleware" />
@@ -375,6 +389,7 @@
     <MESSAGE value="feat:add Table" />
     <MESSAGE value="feat:add loading animation" />
     <MESSAGE value="feat:add buttons block, delete, unblock" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:add buttons block, delete, unblock" />
+    <MESSAGE value="fix:styles" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix:styles" />
   </component>
 </project>

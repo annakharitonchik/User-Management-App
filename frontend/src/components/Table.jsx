@@ -1,13 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 const apiUrl = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 import { Lock, Trash2, LockOpen } from "lucide-react";
 
 const Table = ({ user, setUser }) => {
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
   const getTimeAgo = (date) => {
     const now = new Date();
     const loginDate = new Date(date);
@@ -36,6 +34,11 @@ const Table = ({ user, setUser }) => {
         },
         { headers: { Authorization: localStorage.getItem("token") } },
       );
+      if (selectedEmails.includes(user.email)) {
+        localStorage.removeItem("token");
+        setUser(null);
+        return;
+      }
       setUsers((prev) =>
         prev.map((user) =>
           selectedEmails.includes(user.email)
@@ -57,7 +60,7 @@ const Table = ({ user, setUser }) => {
       setUsers((prev) =>
         prev.map((user) =>
           selectedEmails.includes(user.email)
-            ? { ...user, status: "Active" }
+            ? { ...user, status: user.verified ? "Active" : "Unverified" }
             : user,
         ),
       );
@@ -163,7 +166,14 @@ const Table = ({ user, setUser }) => {
             </thead>
             <tbody>
               {users.map((person, index) => (
-                <tr className="border-b-2 border-gray-200" key={index}>
+                <tr
+                  className={
+                    person.status === "Blocked"
+                      ? "line-through text-gray-400 border-b-2 border-gray-200"
+                      : "border-b-2 border-gray-200"
+                  }
+                  key={index}
+                >
                   <td className="py-3">
                     <div className="flex gap-2">
                       <div className="font-medium">
@@ -194,15 +204,7 @@ const Table = ({ user, setUser }) => {
                   <td>
                     <div className="whitespace-nowrap">{person.email}</div>
                   </td>
-                  <td
-                    className={
-                      person.status === "Blocked"
-                        ? "text-gray-400 whitespace-nowrap"
-                        : "whitespace-nowrap"
-                    }
-                  >
-                    {person.status}
-                  </td>
+                  <td className="whitespace-nowrap">{person.status}</td>
                   <td>
                     <div className="whitespace-nowrap">
                       {getTimeAgo(person.last_seen)}

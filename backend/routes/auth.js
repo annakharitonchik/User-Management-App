@@ -56,7 +56,9 @@ router.post("/login", async (req, res) => {
     return res.status(400).json({ message: "Invalid credentials" });
   }
   const userData = user.rows[0];
-
+  if (userData.status === "Blocked") {
+    return res.status(403).json({ message: "User blocked" });
+  }
   const isMatch = await bcrypt.compare(password, userData.password);
 
   if (!isMatch) {
@@ -73,6 +75,7 @@ router.post("/login", async (req, res) => {
       email: userData.email,
       status: userData.status,
       login_at: userData.login_at,
+      verified: userData.verified,
     },
     token,
   });
