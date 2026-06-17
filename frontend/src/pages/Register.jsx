@@ -33,7 +33,7 @@ const Register = ({ setUser }) => {
 
   return (
     <>
-      {
+      {showEmailAlert && (
         <div
           className="
     fixed top-5  lg:left-1/4 left-1/2 -translate-x-1/2
@@ -48,7 +48,7 @@ const Register = ({ setUser }) => {
           </p>
           <p className="text-sm text-gray-500">Verification link was sent</p>
         </div>
-      }
+      )}
       <div className="min-h-[80dvh] flex items-center justify-center p-4 ">
         <div className="flex flex-col gap-3 w-full items-center justify-center">
           <div>
