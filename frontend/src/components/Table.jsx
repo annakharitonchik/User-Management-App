@@ -99,7 +99,7 @@ const Table = ({ user, setUser }) => {
 
   return (
     <div
-      className="w-full h-full px-4 caret-transparent flex flex-col
+      className="w-full h-full caret-transparent flex flex-col
     justify-center items-center gap-y-2"
     >
       <div className="w-full h-5/6 bg-white rounded-xl">
