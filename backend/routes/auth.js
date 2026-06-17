@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-import { sendVerificationEmail } from "../services/mailer.js";
+import { sendVerificationEmail } from "../services/gmailapi.js";
 import jwt from "jsonwebtoken";
 import pool from "../config/db.js";
 import { protect } from "../middleware/auth.js";

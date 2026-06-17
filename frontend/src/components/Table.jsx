@@ -194,7 +194,9 @@ const Table = ({ user, setUser }) => {
                       type="checkbox"
                       checked={
                         users.length > 0 &&
-                        selectedEmails.length === users.length
+                        users.every((user) =>
+                          selectedEmails.includes(user.email),
+                        )
                       }
                       onChange={(e) => {
                         if (e.target.checked) {
