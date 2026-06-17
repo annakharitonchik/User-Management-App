@@ -14,7 +14,7 @@ const generateToken = (email) => {
 
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
-  if (!email || !password) {
+  if (!email || !password || !name) {
     return res
       .status(400)
       .json({ message: `Please provide email or password"}` });
@@ -62,7 +62,9 @@ router.post("/login", async (req, res) => {
   if (!isMatch) {
     return res.status(400).json({ message: "Invalid password" });
   }
-
+  await pool.query("UPDATE users SET last_seen = NOW() WHERE email = $1", [
+    email,
+  ]);
   const token = generateToken(userData.email);
 
   res.json({
@@ -80,4 +82,39 @@ router.get("/me", protect, async (req, res) => {
   res.json(req.user);
 });
 
+router.get("/users", protect, async (req, res) => {
+  const users = await pool.query(
+    "SELECT * FROM users ORDER BY last_seen DESC NULLS LAST",
+  );
+
+  if (users.rows.length === 0) {
+    return res.status(404).json({
+      message: "Users not found",
+    });
+  }
+  res.json(users.rows);
+});
+router.get("/profile", protect, async (req, res) => {
+  res.json(req.user);
+});
+router.patch("/users/block", protect, async (req, res) => {
+  const { emails } = req.body;
+  await pool.query(
+    "UPDATE users SET status = 'Blocked' WHERE email = ANY($1)",
+    [emails],
+  );
+  res.json({ message: "Users blocked" });
+});
+router.patch("/users/unblock", protect, async (req, res) => {
+  const { emails } = req.body;
+  await pool.query("UPDATE users SET status = 'Active' WHERE email = ANY($1)", [
+    emails,
+  ]);
+  res.json({ message: "Users unblocked" });
+});
+router.patch("/users/remove", protect, async (req, res) => {
+  const { emails } = req.body;
+  await pool.query("DELETE FROM users WHERE email = ANY($1)", [emails]);
+  res.json({ message: "Users deleted" });
+});
 export default router;

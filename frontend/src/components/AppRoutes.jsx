@@ -6,7 +6,10 @@ import NotFound from "../components/NotFound";
 const AppRoutes = ({ user, error, setUser }) => {
   return (
     <Routes>
-      <Route path="/" element={<Home error={error} user={user} />} />
+      <Route
+        path="/"
+        element={<Home error={error} user={user} setUser={setUser} />}
+      />
 
       <Route
         path="/login"

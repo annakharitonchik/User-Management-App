@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import Table from "../components/Table";
-const Home = ({ user, error }) => {
+const Home = ({ user, error, setUser }) => {
   return (
     <div>
       {error && <p>{error}</p>}
       {user ? (
-        <Table />
+        <Table user={user} setUser={setUser} />
       ) : (
         <div className="min-h-[80dvh] flex items-center justify-center p-4">
           <div className="bg-white p-6 rounded shadow-md w-full max-w-sm">

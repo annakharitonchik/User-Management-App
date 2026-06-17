@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="WS-253.29346.143">
-    <data-source name="usersApp@localhost" uuid="f59f6084-5326-41f5-abb3-cafda10113a3">
-      <database-info product="PostgreSQL" version="18.4" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="18.4" exact-driver-version="42.7">
+    <data-source name="usersapp_xo95@dpg-d8m6ov58nd3s73dnagu0-a.oregon-postgres.render.com" uuid="236a04d0-8d08-4058-bce2-b0f0579ac31b">
+      <database-info product="PostgreSQL" version="18.4 (Debian 18.4-1.pgdg12+1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="18.4" exact-driver-version="42.7">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
-      <user-name>postgres</user-name>
+      <user-name>usersapp_xo95_user</user-name>
       <schema-mapping>
         <introspection-scope>
           <node kind="database" qname="@">
@@ -15,6 +15,10 @@
           </node>
         </introspection-scope>
       </schema-mapping>
+      <ssl-config use-ide-store="true" use-java-store="true" use-system-store="true">
+        <enabled>true</enabled>
+        <mode>REQUIRE</mode>
+      </ssl-config>
     </data-source>
   </component>
 </project>

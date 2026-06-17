@@ -20,8 +20,13 @@ export const protect = async (req, res, next) => {
         .status(401)
         .json({ message: "Not authorized, user not found" });
     }
-
     req.user = user.rows[0];
+    if (req.user.status === "Blocked") {
+      return res.status(403).json({ message: "User blocked" });
+    }
+    await pool.query("UPDATE users SET last_seen = NOW() WHERE email = $1", [
+      req.user.email,
+    ]);
     next();
   } catch (error) {
     console.error(error);
