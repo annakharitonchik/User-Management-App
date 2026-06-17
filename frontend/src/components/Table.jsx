@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 const apiUrl = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
-import { Lock, Trash2, LockOpen, UserRoundX } from "lucide-react";
+import { Lock, Trash2, LockOpen, UserRoundX, MailCheck } from "lucide-react";
 
 const Table = ({ user, setUser }) => {
   const [users, setUsers] = useState([]);
@@ -24,9 +24,14 @@ const Table = ({ user, setUser }) => {
     return `${weeks} ${weeks === 1 ? "week ago" : "weeks ago"}`;
   };
   const [selectedEmails, setSelectedEmails] = useState([]);
-
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const blockSelectedUsers = async () => {
     if (selectedEmails.length) {
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
       await axios.patch(
         apiUrl + "/api/auth/users/block",
         {
@@ -46,10 +51,19 @@ const Table = ({ user, setUser }) => {
             : user,
         ),
       );
+    } else {
+      setShowErrorMessage(true);
+      setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 3000);
     }
   };
   const unBlockSelectedUsers = async () => {
     if (selectedEmails.length) {
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
       await axios.patch(
         apiUrl + "/api/auth/users/unblock",
         {
@@ -64,10 +78,19 @@ const Table = ({ user, setUser }) => {
             : user,
         ),
       );
+    } else {
+      setShowErrorMessage(true);
+      setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 3000);
     }
   };
   const removeSelectedUsers = async () => {
     if (selectedEmails.length) {
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
       await axios.patch(
         apiUrl + "/api/auth/users/remove",
         {
@@ -83,10 +106,19 @@ const Table = ({ user, setUser }) => {
       setUsers((prev) =>
         prev.filter((user) => !selectedEmails.includes(user.email)),
       );
+    } else {
+      setShowErrorMessage(true);
+      setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 3000);
     }
   };
   const removeSelectedUnverifiedUsers = async () => {
     if (selectedEmails.length) {
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
       await axios.patch(
         apiUrl + "/api/auth/users/remove/unverified",
         {
@@ -108,6 +140,11 @@ const Table = ({ user, setUser }) => {
             ),
         ),
       );
+    } else {
+      setShowErrorMessage(true);
+      setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 3000);
     }
   };
 
@@ -126,143 +163,165 @@ const Table = ({ user, setUser }) => {
   }, []);
 
   return (
-    <div
-      className="w-full h-full caret-transparent flex flex-col
+    <>
+      {(showSuccessMessage || showErrorMessage) && (
+        <div
+          className={`fixed top-5 left-1/2 -translate-x-1/2 shadow-lg rounded-xl px-5 py-4 z-50 w-90 max-w-sm text-center text-white ${
+            showSuccessMessage ? "bg-green-100" : "bg-red-100"
+          }`}
+        >
+          <p
+            className={`text-sm font-semibold ${
+              showSuccessMessage ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {showSuccessMessage
+              ? "Action completed successfully"
+              : "Request could not be processed"}
+          </p>
+        </div>
+      )}
+      <div
+        className="w-full h-full caret-transparent flex flex-col
     justify-center items-center gap-y-2"
-    >
-      <div className="w-full h-5/6 bg-white rounded-xl">
-        <div className=" px-5 py-4 bg-gray-300 overflow-x-auto">
-          <div className="h-10 flex gap-3 items-center justify-between min-w-max">
-            <div className="h-full flex items-center gap-2">
-              <button
-                className=" h-full border-2 flex items-center gap-1 border-blue-600 rounded-md px-2 py-1 text-blue-600"
-                onClick={blockSelectedUsers}
-              >
-                <Lock size={20} />
-                <span className="font-semibold">Block</span>
-              </button>
+      >
+        <div className="w-full h-5/6 bg-white rounded-xl">
+          <div className=" px-5 py-4 bg-gray-300 overflow-x-auto">
+            <div className="h-10 flex gap-3 items-center justify-between min-w-max">
+              <div className="h-full flex items-center gap-2">
+                <button
+                  className=" h-full border-2 flex items-center gap-1 border-blue-600 rounded-md px-2 py-1 text-blue-600"
+                  onClick={blockSelectedUsers}
+                >
+                  <Lock size={20} />
+                  <span className="font-semibold">Block</span>
+                </button>
 
-              <button
-                className=" h-full border-2 flex items-center justify-center border-blue-600 rounded-md aspect-square text-blue-600"
-                onClick={unBlockSelectedUsers}
-              >
-                <LockOpen size={20} />
-              </button>
-              <button
-                className=" h-full border-2 flex items-center justify-center border-red-600 rounded-md aspect-square text-red-600"
-                onClick={removeSelectedUsers}
-              >
-                <Trash2 size={20} />
-              </button>
-              <button
-                className=" h-full border-2 flex items-center justify-center border-red-600 rounded-md aspect-square text-red-600"
-                onClick={removeSelectedUnverifiedUsers}
-              >
-                <UserRoundX size={20} />
-              </button>
-            </div>
-            <div className="h-full w-70">
-              <input
-                className="border h-full w-full border-gray-300 px-2 rounded bg-white"
-                type="text"
-                placeholder="Filter"
-              />
+                <button
+                  className=" h-full border-2 flex items-center justify-center border-blue-600 rounded-md aspect-square text-blue-600"
+                  onClick={unBlockSelectedUsers}
+                >
+                  <LockOpen size={20} />
+                </button>
+                <button
+                  className=" h-full border-2 flex items-center justify-center border-red-600 rounded-md aspect-square text-red-600"
+                  onClick={removeSelectedUsers}
+                >
+                  <Trash2 size={20} />
+                </button>
+                <button
+                  className=" h-full border-2 flex items-center justify-center border-red-600 rounded-md aspect-square text-red-600"
+                  onClick={removeSelectedUnverifiedUsers}
+                >
+                  <UserRoundX size={20} />
+                </button>
+              </div>
+              <div className="h-full w-70">
+                <input
+                  className="border h-full w-full border-gray-300 px-2 rounded bg-white"
+                  type="text"
+                  placeholder="Filter"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="p-5 w-full overflow-x-auto">
-          <table className="w-full min-w-175 text-sm">
-            <thead className="border-b-2 border-gray-200">
-              <tr className="">
-                <th className="text-start py-2 pr-2 w-1/9 ">
-                  <input
-                    type="checkbox"
-                    checked={
-                      users.length > 0 && selectedEmails.length === users.length
-                    }
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedEmails(users.map((user) => user.email));
-                      } else {
-                        setSelectedEmails([]);
+          <div className="p-5 w-full overflow-x-auto">
+            <table className="w-full min-w-175 text-sm">
+              <thead className="border-b-2 border-gray-200">
+                <tr className="">
+                  <th className="text-start py-2 pr-2 w-1/9 ">
+                    <input
+                      type="checkbox"
+                      checked={
+                        users.length > 0 &&
+                        selectedEmails.length === users.length
                       }
-                    }}
-                  />
-                </th>
-                <th className="text-start py-2 pr-2 w-2/9 ">Name</th>
-                <th className="text-start py-2 pr-2 w-3/9">Email</th>
-                <th className="text-start py-2 pr-2 w-2/9">Status</th>
-                <th className="text-start py-2 pr-2 w-1/9">Last seen</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((person, index) => (
-                <tr
-                  className={
-                    person.status === "Blocked"
-                      ? "line-through text-gray-400 border-b-2 border-gray-200"
-                      : "border-b-2 border-gray-200"
-                  }
-                  key={index}
-                >
-                  <td className="py-3">
-                    <div className="flex gap-2">
-                      <div className="font-medium">
-                        <input
-                          type="checkbox"
-                          checked={selectedEmails.includes(person.email)}
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              setSelectedEmails((prev) => [
-                                ...prev,
-                                person.email,
-                              ]);
-                            } else {
-                              setSelectedEmails((prev) =>
-                                prev.filter((email) => email !== person.email),
-                              );
-                            }
-                          }}
-                        />
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedEmails(users.map((user) => user.email));
+                        } else {
+                          setSelectedEmails([]);
+                        }
+                      }}
+                    />
+                  </th>
+                  <th className="text-start py-2 pr-2 w-2/9 ">Name</th>
+                  <th className="text-start py-2 pr-2 w-3/9">Email</th>
+                  <th className="text-start py-2 pr-2 w-2/9">Status</th>
+                  <th className="text-start py-2 pr-2 w-1/9">Last seen</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((person, index) => (
+                  <tr
+                    className={
+                      person.status === "Blocked"
+                        ? "line-through text-gray-400 border-b-2 border-gray-200"
+                        : "border-b-2 border-gray-200"
+                    }
+                    key={index}
+                  >
+                    <td className="py-3">
+                      <div className="flex gap-2">
+                        <div className="font-medium">
+                          <input
+                            type="checkbox"
+                            checked={selectedEmails.includes(person.email)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setSelectedEmails((prev) => [
+                                  ...prev,
+                                  person.email,
+                                ]);
+                              } else {
+                                setSelectedEmails((prev) =>
+                                  prev.filter(
+                                    (email) => email !== person.email,
+                                  ),
+                                );
+                              }
+                            }}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div className="font-medium whitespace-nowrap">
-                      {person.name}
-                    </div>
-                  </td>
-                  <td>
-                    <div className="whitespace-nowrap">{person.email}</div>
-                  </td>
-                  <td className="whitespace-nowrap">{person.status}</td>
-                  <td>
-                    <div className="whitespace-nowrap relative group cursor-pointer z-10">
-                      {getTimeAgo(person.last_seen)}
-                      <div
-                        className="
+                    </td>
+                    <td>
+                      <div className="font-medium whitespace-nowrap">
+                        {person.name}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="whitespace-nowrap">{person.email}</div>
+                    </td>
+                    <td className="whitespace-nowrap">{person.status}</td>
+                    <td>
+                      <div className="whitespace-nowrap relative group cursor-pointer z-10">
+                        {getTimeAgo(person.last_seen)}
+                        <div
+                          className="
       absolute left-1/2 -translate-x-1/2 mt-2 opacity-0 invisible
       group-hover:opacity-100 group-hover:visible
       bg-gray-900 text-white text-xs rounded px-2 py-1"
-                      >
-                        {new Date(person.last_seen).toLocaleString("en-GB", {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          hour12: false,
-                        })}
+                        >
+                          {new Date(person.last_seen).toLocaleString("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: false,
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

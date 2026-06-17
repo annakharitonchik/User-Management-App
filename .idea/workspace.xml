@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd9c89a7-91c4-48ef-95fe-baa78baf1b2d" name="Changes" comment="feat: button delete unverified">
-      <change afterPath="$PROJECT_DIR$/backend/services/mailer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="fd9c89a7-91c4-48ef-95fe-baa78baf1b2d" name="Changes" comment="feat: add  error/success messages">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Table.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Table.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/mailer.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/mailer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -363,7 +357,31 @@
       <option name="project" value="LOCAL" />
       <updated>1781700602583</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="feat: add verification">
+      <option name="closed" value="true" />
+      <created>1781711260381</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1781711260381</updated>
+    </task>
+    <task id="LOCAL-00032" summary="feat: add tooltip">
+      <option name="closed" value="true" />
+      <created>1781711510068</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1781711510068</updated>
+    </task>
+    <task id="LOCAL-00033" summary="feat: add  error/success messages">
+      <option name="closed" value="true" />
+      <created>1781713493717</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1781713493717</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -384,9 +402,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="creating protect middleware" />
-    <MESSAGE value="setting frontend" />
-    <MESSAGE value="add src" />
     <MESSAGE value="create Login" />
     <MESSAGE value="create Register" />
     <MESSAGE value="create Navbar" />
@@ -409,6 +424,9 @@
     <MESSAGE value="fix:styles" />
     <MESSAGE value="fix:buttons delete, block unblock" />
     <MESSAGE value="feat: button delete unverified" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: button delete unverified" />
+    <MESSAGE value="feat: add verification" />
+    <MESSAGE value="feat: add tooltip" />
+    <MESSAGE value="feat: add  error/success messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add  error/success messages" />
   </component>
 </project>
