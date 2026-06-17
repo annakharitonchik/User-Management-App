@@ -1,5 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
+import { sendVerificationEmail } from "../services/mailer.js";
 import jwt from "jsonwebtoken";
 import pool from "../config/db.js";
 import { protect } from "../middleware/auth.js";
@@ -23,18 +25,29 @@ router.post("/register", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+
     const newUser = await pool.query(
-      "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING * ",
-      [name, email, hashedPassword],
+      "INSERT INTO users (name, email, password, status, verification_token) VALUES ($1, $2, $3, 'Unverified', $4)" +
+        " RETURNING * ",
+      [name, email, hashedPassword, verificationToken],
     );
 
+    sendVerificationEmail(email, verificationToken).catch((err) => {
+      console.log("Email error:", err.message);
+    });
     const token = generateToken(newUser.rows[0].email);
 
     return res.status(201).json({ user: newUser.rows[0], token });
   } catch (error) {
     if (error.code === "23505") {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({
+        message: "User already exists",
+      });
     }
+    return res.status(500).json({
+      message: "Server error",
+    });
   }
 });
 
@@ -126,5 +139,20 @@ router.patch("/users/remove/unverified", protect, async (req, res) => {
     [emails],
   );
   res.json({ message: "Unverified users deleted" });
+});
+router.get("/verify/:token", async (req, res) => {
+  const { token } = req.params;
+  const user = await pool.query(
+    "SELECT * FROM users WHERE verification_token=$1",
+    [token],
+  );
+  if (!user.rows.length) {
+    return res.status(400).send("Invalid token");
+  }
+  await pool.query(
+    " UPDATE users SET status='Active', verified = true, verification_token=NULL WHERE verification_token=$1",
+    [token],
+  );
+  res.send("Email verified successfully");
 });
 export default router;
