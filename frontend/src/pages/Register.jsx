@@ -17,11 +17,9 @@ const Register = ({ setUser }) => {
 
     try {
       const res = await axios.post(apiUrl + "/api/auth/register", form);
-      localStorage.setItem("token", res.data.token);
       setShowEmailAlert(true);
       setTimeout(() => {
-        setUser(res.data.user);
-        navigate("/");
+        navigate("/login");
       }, 3000);
     } catch (error) {
       if (error.response?.status === 403 || error.response?.status === 401) {

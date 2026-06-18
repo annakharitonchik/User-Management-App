@@ -36,9 +36,8 @@ router.post("/register", async (req, res) => {
     sendVerificationEmail(email, verificationToken).catch((err) => {
       console.log("Email error:", err.message);
     });
-    const token = generateToken(newUser.rows[0].email);
 
-    return res.status(201).json({ user: newUser.rows[0], token });
+    return res.status(201).json({ user: newUser.rows[0] });
   } catch (error) {
     if (error.code === "23505") {
       return res.status(400).json({
