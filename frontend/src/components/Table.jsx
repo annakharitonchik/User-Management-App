@@ -68,7 +68,16 @@ const Table = ({ user, setUser }) => {
       remove
         ? prev.filter((u) => !emails.includes(u.email))
         : prev.map((u) =>
-            emails.includes(u.email) ? { ...u, status: newStatus(u) } : u,
+            emails.includes(u.email)
+              ? {
+                  ...u,
+                  status: newStatus(u),
+                  blocked_at:
+                    newStatus(u) === "Blocked"
+                      ? new Date().toISOString()
+                      : null,
+                }
+              : u,
           ),
     );
 
@@ -258,21 +267,42 @@ const Table = ({ user, setUser }) => {
                     <td className="whitespace-nowrap">{person.status}</td>
                     <td>
                       <div className="whitespace-nowrap relative group cursor-pointer z-10">
-                        {getTimeAgo(person.last_seen)}
+                        {person.status === "Blocked" && person.blocked_at
+                          ? "Blocked at " +
+                            new Date(person.blocked_at).toLocaleString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })
+                          : getTimeAgo(person.last_seen)}
                         <div
                           className="
       absolute left-1/2 -translate-x-1/2 mt-2 opacity-0 invisible
       group-hover:opacity-100 group-hover:visible
       bg-gray-900 text-white text-xs rounded px-2 py-1"
                         >
-                          {new Date(person.last_seen).toLocaleString("en-GB", {
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            hour12: false,
-                          })}
+                          {person.status === "Blocked"
+                            ? new Date(person.blocked_at).toLocaleString(
+                                "en-GB",
+                                {
+                                  day: "numeric",
+                                  month: "long",
+                                  year: "numeric",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  hour12: false,
+                                },
+                              )
+                            : new Date(person.last_seen).toLocaleString(
+                                "en-GB",
+                                {
+                                  day: "numeric",
+                                  month: "long",
+                                  year: "numeric",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  hour12: false,
+                                },
+                              )}
                         </div>
                       </div>
                     </td>

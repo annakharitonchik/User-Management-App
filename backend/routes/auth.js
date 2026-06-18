@@ -114,7 +114,7 @@ router.get("/profile", protect, async (req, res) => {
 router.patch("/users/block", protect, async (req, res) => {
   const { emails } = req.body;
   await pool.query(
-    "UPDATE users SET status = 'Blocked' WHERE email = ANY($1)",
+    "UPDATE users SET status = 'Blocked', blocked_at = NOW() WHERE email = ANY($1)",
     [emails],
   );
   res.json({ message: "Users blocked" });
@@ -122,7 +122,8 @@ router.patch("/users/block", protect, async (req, res) => {
 router.patch("/users/unblock", protect, async (req, res) => {
   const { emails } = req.body;
   await pool.query(
-    "UPDATE users SET status = CASE WHEN verified = true THEN 'Active' ELSE 'Unverified' END WHERE email = ANY($1)",
+    "UPDATE users  SET status = CASE WHEN verified = true THEN 'Active' ELSE 'Unverified' END, blocked_at = NULL" +
+      " WHERE email = ANY($1)",
     [emails],
   );
   res.json({ message: "Users unblocked" });
