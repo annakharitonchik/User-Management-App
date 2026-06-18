@@ -56,36 +56,66 @@ const Table = ({ user, setUser }) => {
     }
     switch (action) {
       case "Blocking": {
-        const definedUsers = selectedUsers.filter(
+        const activeUsers = selectedUsers.filter((u) => u.status !== "Blocked");
+
+        if (!activeUsers.length) {
+          showErrorMessage(
+            selectedUsers.length === 1
+              ? "User is already blocked"
+              : "Users are already blocked",
+          );
+          return;
+        }
+
+        selectedUsers.length = 0;
+        selectedUsers.push(...activeUsers);
+
+        break;
+      }
+
+      case "Unblocking": {
+        const blockedUsers = selectedUsers.filter(
           (u) => u.status === "Blocked",
         );
-        if (definedUsers.length === 1) {
-          showErrorMessage(`User is already blocked`);
-          return;
-        } else if (definedUsers.length > 1) {
-          showErrorMessage(`Users are already blocked`);
-          return;
-        }
-        break;
-      }
-      case "Unblocking": {
-        const definedUsers = selectedUsers.filter(
-          (u) => u.status !== "Blocked",
-        );
-        if (definedUsers.length === 1) {
-          showErrorMessage(`User is already unblocked`);
-          return;
-        } else if (definedUsers.length > 1) {
-          showErrorMessage(`Users are already unblocked`);
+
+        if (!blockedUsers.length) {
+          showErrorMessage(
+            selectedUsers.length === 1
+              ? "User is already unblocked"
+              : "Users are already unblocked",
+          );
           return;
         }
+
+        selectedUsers.length = 0;
+        selectedUsers.push(...blockedUsers);
+
         break;
       }
+
       case "Removing unverified users": {
-        if (selectedUsers.some((u) => u.status !== "Unverified")) {
+        const unverifUsers = selectedUsers.filter(
+          (u) => u.status === "Unverified",
+        );
+
+        const otherUsers = selectedUsers.filter(
+          (u) => u.status !== "Unverified",
+        );
+
+        if (!unverifUsers.length) {
           showErrorMessage("Please select users with status 'Unverified'");
           return;
         }
+
+        if (otherUsers.length) {
+          showErrorMessage(
+            `${otherUsers.length} users were skipped because they are not unverified`,
+          );
+        }
+
+        selectedUsers.length = 0;
+        selectedUsers.push(...unverifUsers);
+
         break;
       }
     }
@@ -125,6 +155,7 @@ const Table = ({ user, setUser }) => {
     );
     showSuccessMessage(`${action} successful`);
   };
+
   const blockSelectedUsers = () => {
     handleUserActions({
       url: "/api/auth/users/block",
@@ -156,6 +187,7 @@ const Table = ({ user, setUser }) => {
       action: "Removing unverified users",
     });
   };
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
