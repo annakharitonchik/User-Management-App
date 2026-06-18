@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd9c89a7-91c4-48ef-95fe-baa78baf1b2d" name="Changes" comment="feat: blocked_at">
+    <list default="true" id="fd9c89a7-91c4-48ef-95fe-baa78baf1b2d" name="Changes" comment="fix: auth.js">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Table.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Table.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +119,8 @@
       <workItem from="1781719008800" duration="1680000" />
       <workItem from="1781720870526" duration="12048000" />
       <workItem from="1781767919078" duration="4178000" />
-      <workItem from="1781772760284" duration="319000" />
+      <workItem from="1781772760284" duration="449000" />
+      <workItem from="1781780024737" duration="6305000" />
     </task>
     <task id="LOCAL-00001" summary="backend setup">
       <option name="closed" value="true" />
@@ -466,7 +466,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781772355386</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="fix: auth.js">
+      <option name="closed" value="true" />
+      <created>1781773167785</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1781773167785</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -492,7 +500,6 @@
     <MESSAGE value="fix: cookieOptions" />
     <MESSAGE value="fix: logout" />
     <MESSAGE value="fix: Home.js" />
-    <MESSAGE value="fix: auth.js" />
     <MESSAGE value="fix: add headers" />
     <MESSAGE value="style:use prettier" />
     <MESSAGE value="style:add styles" />
@@ -512,6 +519,7 @@
     <MESSAGE value="fix: add Gmail API" />
     <MESSAGE value="fix: package.json" />
     <MESSAGE value="feat: blocked_at" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: blocked_at" />
+    <MESSAGE value="fix: auth.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: auth.js" />
   </component>
 </project>

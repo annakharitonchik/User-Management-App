@@ -24,28 +24,71 @@ const Table = ({ user, setUser }) => {
     return `${weeks} ${weeks === 1 ? "week ago" : "weeks ago"}`;
   };
   const [selectedEmails, setSelectedEmails] = useState([]);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const showErrorMessage = (message) => {
+    setErrorMessage(message);
+    setTimeout(() => {
+      setErrorMessage("");
+    }, 3000);
+  };
+  const showSuccessMessage = (message) => {
+    setSuccessMessage(message);
+
+    setTimeout(() => {
+      setSuccessMessage("");
+    }, 3000);
+  };
 
   const handleUserActions = async ({
     url,
     newStatus,
-    filterFn,
     remove = false,
     logout = false,
+    action,
   }) => {
-    const selectedUsers = users.filter(
-      (u) => selectedEmails.includes(u.email) && filterFn(u),
-    );
+    const selectedUsers = users.filter((u) => selectedEmails.includes(u.email));
 
     if (!selectedUsers.length) {
-      setShowErrorMessage(true);
-      setTimeout(() => {
-        setShowErrorMessage(false);
-      }, 3000);
+      showErrorMessage("Please select users");
       return;
     }
-
+    switch (action) {
+      case "Blocking": {
+        const definedUsers = selectedUsers.filter(
+          (u) => u.status === "Blocked",
+        );
+        if (definedUsers.length === 1) {
+          showErrorMessage(`User is already blocked`);
+          return;
+        } else if (definedUsers.length > 1) {
+          showErrorMessage(`Users are already blocked`);
+          return;
+        }
+        break;
+      }
+      case "Unblocking": {
+        const definedUsers = selectedUsers.filter(
+          (u) => u.status !== "Blocked",
+        );
+        if (definedUsers.length === 1) {
+          showErrorMessage(`User is already unblocked`);
+          return;
+        } else if (definedUsers.length > 1) {
+          showErrorMessage(`Users are already unblocked`);
+          return;
+        }
+        break;
+      }
+      case "Removing unverified users": {
+        if (selectedUsers.some((u) => u.status !== "Unverified")) {
+          showErrorMessage("Please select users with status 'Unverified'");
+          return;
+        }
+        break;
+      }
+    }
     const emails = selectedUsers.map((u) => u.email);
 
     await axios.patch(
@@ -80,41 +123,37 @@ const Table = ({ user, setUser }) => {
               : u,
           ),
     );
-
-    setShowSuccessMessage(true);
-    setTimeout(() => {
-      setShowSuccessMessage(false);
-    }, 3000);
+    showSuccessMessage(`${action} successful`);
   };
   const blockSelectedUsers = () => {
     handleUserActions({
       url: "/api/auth/users/block",
-      filterFn: (u) => u.status !== "Blocked",
       newStatus: () => "Blocked",
       logout: true,
+      action: "Blocking",
     });
   };
   const unBlockSelectedUsers = () => {
     handleUserActions({
       url: "/api/auth/users/unblock",
-      filterFn: (u) => u.status === "Blocked",
       newStatus: (u) => (u.verified ? "Active" : "Unverified"),
+      action: "Unblocking",
     });
   };
   const removeSelectedUsers = () => {
     handleUserActions({
       url: "/api/auth/users/remove",
-      filterFn: () => true,
       remove: true,
       logout: true,
+      action: "Removing",
     });
   };
   const removeSelectedUnverifiedUsers = () => {
     handleUserActions({
       url: "/api/auth/users/remove/unverified",
-      filterFn: (u) => u.status === "Unverified",
       remove: true,
       logout: true,
+      action: "Removing unverified users",
     });
   };
   useEffect(() => {
@@ -133,20 +172,18 @@ const Table = ({ user, setUser }) => {
 
   return (
     <>
-      {(showSuccessMessage || showErrorMessage) && (
+      {(successMessage || errorMessage) && (
         <div
           className={`fixed top-5 left-1/2 -translate-x-1/2 shadow-lg rounded-xl px-5 py-4 z-50 w-90 max-w-sm text-center text-white ${
-            showSuccessMessage ? "bg-green-100" : "bg-red-100"
+            successMessage ? "bg-green-100" : "bg-red-100"
           }`}
         >
           <p
             className={`text-sm font-semibold ${
-              showSuccessMessage ? "text-green-600" : "text-red-600"
+              successMessage ? "text-green-600" : "text-red-600"
             }`}
           >
-            {showSuccessMessage
-              ? "Action completed successfully"
-              : "Request could not be processed"}
+            {successMessage ? successMessage : errorMessage}
           </p>
         </div>
       )}
